@@ -20,4 +20,4 @@ COPY --from=build /app ./
 ENV ASPNETCORE_URLS=http://+:${PORT}
 
 # Entry point (thay tên DLL đúng theo project bạn)
-ENTRYPOINT ["dotnet", "FlappyBirdAPI.dll"]
+ENTRYPOINT ["dotnet", "Flappy Bird API.dll"]

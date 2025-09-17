@@ -1,5 +1,6 @@
 ﻿using Flappy_Bird_API.Database;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Flappy_Bird_API
 {
@@ -12,12 +13,13 @@ namespace Flappy_Bird_API
             // Add services to the container.
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+            builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<ScoreDbContext>(options => options.UseSqlite("Data Source=flappybird.db"));
-
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -27,18 +29,8 @@ namespace Flappy_Bird_API
                 app.UseSwaggerUI();
             }
 
-            //app.UseHttpsRedirection();
-
-            //app.UseAuthorization();
-
-            using (var scope = app.Services.CreateScope())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<ScoreDbContext>();
-                var connection = db.Database.GetDbConnection();
-                Console.WriteLine("SQLite dang ket noi toi file: " + connection.DataSource);
-            }
-            
-
+            app.UseHttpsRedirection();
+            app.UseAuthorization();       
             app.MapControllers();
 
             app.Run();

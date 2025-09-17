@@ -10,8 +10,8 @@ namespace Flappy_Bird_API.Controllers
     [Route("api/[controller]")]
     public class ScoreController : Controller
     {
-        private readonly ScoreDbContext context;
-        public ScoreController(ScoreDbContext context)
+        private readonly DataContext context;
+        public ScoreController(DataContext context)
         {
             this.context = context;
         }
@@ -19,7 +19,7 @@ namespace Flappy_Bird_API.Controllers
         [HttpPost]
         public async Task<IActionResult> PostScore([FromBody] Score score)
         {
-            context.Score.Add(score);
+            context.Scores.Add(score);
             await context.SaveChangesAsync();
             return Ok(score);
         }
@@ -27,7 +27,7 @@ namespace Flappy_Bird_API.Controllers
         [HttpGet("top/{count}")]
         public async Task<IActionResult> GetTopScores(int count)
         {
-            var topScores = await context.Score
+            var topScores = await context.Scores
                 .OrderByDescending(s => s.Points)
                 .Take(count)
                 .ToListAsync();

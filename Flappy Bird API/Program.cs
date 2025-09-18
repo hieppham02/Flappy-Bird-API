@@ -11,7 +11,7 @@ namespace Flappy_Bird_API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+            var databaseUrl = Environment.GetEnvironmentVariable("postgresql://postgres:RRKuqTjOioYGUrUBkWyMpLaDpHqqQMQG@switchback.proxy.rlwy.net:37129/railway");
 
             string connectionString;
             if (!string.IsNullOrEmpty(databaseUrl))

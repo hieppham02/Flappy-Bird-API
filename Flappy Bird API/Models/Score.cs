@@ -10,6 +10,6 @@ namespace Flappy_Bird_API.Models
         public string playername { get; set; } = string.Empty;
         public int points { get; set; }
         public string mode { get; set; }
-        public string createdat { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        public string createdat { get; set; }
     }
 }

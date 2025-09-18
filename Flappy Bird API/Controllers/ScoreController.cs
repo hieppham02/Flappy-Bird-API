@@ -21,7 +21,12 @@ namespace Flappy_Bird_API.Controllers
         {
             context.Scores.Add(score);
             await context.SaveChangesAsync();
-            return Ok(score);
+            return Ok(new
+            {
+                success = true,
+                message = "success",
+                data = score
+            });
         }
        
         [HttpGet("top/{count}")]

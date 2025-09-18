@@ -32,7 +32,8 @@ namespace Flappy_Bird_API
             using (var scope = app.Services.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-            
+                dbContext.Database.EnsureCreated();
+                
                 if (dbContext.Database.CanConnect())
                 {
                     Console.WriteLine("✅ Kết nối SQLite thành công!");

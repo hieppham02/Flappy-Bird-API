@@ -29,6 +29,20 @@ namespace Flappy_Bird_API
                 app.UseSwaggerUI();
             }
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+            
+                if (dbContext.Database.CanConnect())
+                {
+                    Console.WriteLine("✅ Kết nối SQLite thành công!");
+                }
+                else
+                {
+                    Console.WriteLine("❌ Kết nối SQLite thất bại!");
+                }
+            }
+            
             app.UseHttpsRedirection();
             app.UseAuthorization();       
             app.MapControllers();

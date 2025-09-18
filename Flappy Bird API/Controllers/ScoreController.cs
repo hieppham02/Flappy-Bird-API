@@ -33,7 +33,7 @@ namespace Flappy_Bird_API.Controllers
         public async Task<IActionResult> GetTopScores(int count)
         {
             var topScores = await context.Scores
-                .OrderByDescending(s => s.Points)
+                .OrderByDescending(s => s.points)
                 .Take(count)
                 .ToListAsync();
 

@@ -14,7 +14,8 @@ namespace Flappy_Bird_API
 
             builder.Services.AddControllers();
 
-            builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDbContext<DataContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -27,6 +28,20 @@ namespace Flappy_Bird_API
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+            }
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+
+                if (dbContext.Database.CanConnect())
+                {
+                    Console.WriteLine("✅ Kết nối thành công!");
+                }
+                else
+                {
+                    Console.WriteLine("❌ Kết nối thất bại!");
+                }
             }
 
             app.UseHttpsRedirection();

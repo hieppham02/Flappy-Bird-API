@@ -16,11 +16,12 @@ namespace Flappy_Bird_API
             string connectionString;
             if (!string.IsNullOrEmpty(databaseUrl))
             {
-                // Convert URL -> Npgsql connection string
+                // Nếu Railway inject DATABASE_URL thì parse
                 var uri = new Uri(databaseUrl);
                 var userInfo = uri.UserInfo.Split(':');
                 connectionString =
-                    $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+                    $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};" +
+                    $"Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
             }
             else
             {
@@ -36,8 +37,8 @@ namespace Flappy_Bird_API
             builder.Services.AddDbContext<DataContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            //builder.Services.AddEndpointsApiExplorer();
-            //builder.Services.AddSwaggerGen();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
             
             var app = builder.Build();

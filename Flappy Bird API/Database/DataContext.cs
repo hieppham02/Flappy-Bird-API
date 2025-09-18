@@ -14,6 +14,6 @@ namespace Flappy_Bird_API.Database
 
         }
 
-        public DbSet<Models.Score> Scores { get; set; }
+        public DbSet<Models.Score> Score { get; set; }
     }
 }

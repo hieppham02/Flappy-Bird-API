@@ -18,6 +18,7 @@ COPY --from=build /app ./
 
 # Railway sẽ inject biến môi trường PORT khi chạy container
 ENV ASPNETCORE_URLS=http://+:${PORT}
+ENV DOTNET_RUNNING_IN_CONTAINER=true
 
 # Entry point (thay tên DLL đúng theo project bạn)
-ENTRYPOINT ["dotnet", "Flappy Bird API.dll"]
+ENTRYPOINT ["dotnet", "FlappyBirdAPI.dll"]

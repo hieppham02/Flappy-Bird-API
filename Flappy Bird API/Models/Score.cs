@@ -7,9 +7,9 @@ namespace Flappy_Bird_API.Models
     public class Score
     {
         [Key]
-        public int id { get; set; }
         public string playername { get; set; } = string.Empty;
-        public string points { get; set; }
+        public int points { get; set; }
+        public string mode { get; set; }
         public string createdat { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
     }
 }

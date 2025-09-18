@@ -9,7 +9,7 @@ namespace Flappy_Bird_API.Models
         [Key]
         public int id { get; set; }
         public string playername { get; set; } = string.Empty;
-        public int points { get; set; }
+        public string points { get; set; }
         public string createdat { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
     }
 }

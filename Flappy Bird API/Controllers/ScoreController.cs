@@ -19,7 +19,7 @@ namespace Flappy_Bird_API.Controllers
         [HttpPost]
         public async Task<IActionResult> PostScore([FromBody] Score score)
         {
-            context.Score.Add(score);
+            context.Scores.Add(score);
             await context.SaveChangesAsync();
             return Ok(new
             {
@@ -32,7 +32,7 @@ namespace Flappy_Bird_API.Controllers
         [HttpGet("top/{count}")]
         public async Task<IActionResult> GetTopScores(int count)
         {
-            var topScores = await context.Score
+            var topScores = await context.Scores
                 .OrderByDescending(s => s.Points)
                 .Take(count)
                 .ToListAsync();

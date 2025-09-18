@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Flappy_Bird_API.Models
 {
-    [Table("SCORE")]
+    [Table("score", Schema = "public")]
     public class Score
     {
         [Key]

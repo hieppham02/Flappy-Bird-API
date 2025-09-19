@@ -16,7 +16,7 @@ namespace Flappy_Bird_API
             string connectionString;
             if (!string.IsNullOrEmpty(databaseUrl))
             {
-                // Nếu Railway inject DATABASE_URL thì parse
+                // Parse DATABASE_URL của Railway (dạng postgresql://...)
                 var uri = new Uri(databaseUrl);
                 var userInfo = uri.UserInfo.Split(':');
                 connectionString =
@@ -25,31 +25,26 @@ namespace Flappy_Bird_API
             }
             else
             {
+                
                 connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             }
 
             builder.Services.AddDbContext<DataContext>(options =>
                 options.UseNpgsql(connectionString));
-            // 
-
             builder.Services.AddControllers();
-
-            builder.Services.AddDbContext<DataContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
+            
             using (var scope = app.Services.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
@@ -65,7 +60,7 @@ namespace Flappy_Bird_API
             }
 
             app.UseHttpsRedirection();
-            app.UseAuthorization();       
+            app.UseAuthorization();
             app.MapControllers();
 
             app.Run();
